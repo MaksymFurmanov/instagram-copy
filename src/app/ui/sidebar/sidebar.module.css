@@ -1,0 +1,94 @@
+.Sidebar {
+    display: none;
+    background-color: white;
+    border-right: 0.5px solid #dadde1;
+    position: fixed;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0.5em 0.75em 1.2em 0.75em;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.SidebarLink {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 1em;
+    margin: 0.2em auto;
+    transition: background-color 1ms ease, width 1ms ease;
+}
+
+.SidebarLink:hover {
+    background-color: rgb(242 242 242);;
+}
+
+.SidebarLink img {
+    width: 1.4em;
+    transition: transform 200ms ease;
+}
+
+.SidebarLink:hover img {
+    transform: scale(1.1);
+}
+
+.SidebarLink p {
+    padding-left: 1.2em;
+    display: none;
+}
+
+.logo,
+.logoFull {
+    margin: 1.7em 0 0 0.6em;
+}
+
+.logo {
+    width: 1.5em;
+    margin-bottom: 2.5em;
+    margin-left: 1em;
+}
+
+.logoFull {
+    width: 6.8em;
+    margin-bottom: 1.2em;
+    display: none;
+}
+
+.profile {
+    border-radius: 50px;
+}
+
+.more {
+    transform: scale(2) !important;
+}
+
+.more:hover {
+    transform: scale(2.1) !important;
+}
+
+/* Styles for tablets in portrait mode */
+@media (min-width: 768px) {
+    .Sidebar {
+        display: flex;
+    }
+}
+
+/* Show sidebar labels */
+@media (min-width: 1260px) {
+    .Sidebar {
+        width: 15.25em;
+    }
+
+    .SidebarLink p {
+        display: inline-block;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .logoFull {
+        display: block;
+    }
+}

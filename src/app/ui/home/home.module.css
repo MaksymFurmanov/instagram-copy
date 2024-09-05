@@ -1,0 +1,43 @@
+.Home {
+    display: flex;
+    justify-content: center;
+}
+
+.HomeHeader {
+    display: flex;
+    gap: 1em;
+    padding: 2.5em 0.4em 0.3em 0.4em;
+    margin-left: 0.1em;
+    border-bottom: 1.5px rgba(219, 219, 219, 1) solid;
+}
+
+.headerLink {
+    color: grey;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.headerLink:hover {
+    color: black;
+}
+
+.headerLink + .selected {
+    color: black;
+    font-weight: 700;
+}
+
+.Recommendations {
+    display: none;
+}
+
+/* Styles for tablets in portrait mode */
+@media (min-width: 768px) {
+
+}
+
+/* Show recommendation */
+@media (min-width: 1170px) {
+    .Recommendations {
+        display: block;
+    }
+}

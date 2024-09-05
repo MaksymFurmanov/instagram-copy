@@ -1,0 +1,78 @@
+.PostsList {
+
+}
+
+.PostCard {
+    font-size: 14px;
+    padding: 2em;
+}
+
+.PostCard header {
+    display: flex;
+    align-items: center;
+    padding-left: 0.2em;
+    padding-bottom: 0.5em;
+}
+
+.PostCard header img {
+    border-radius: 25px;
+    width: 2em;
+    height: 2em;
+    margin-right: 0.75em;
+}
+
+.ContentGallery {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.galleryContainer {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.galleryContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.galleryContainer {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.contentWrapper {
+    position: relative;
+    min-width: 100%;
+    height: 0;
+    padding-bottom: 125%;
+    scroll-snap-align: start;
+}
+
+.contentWrapper img,
+.contentWrapper video {
+    layout: fill;
+    object-fit: cover
+}
+
+.scrollButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    z-index: 2;
+    padding: 0.5rem 1rem;
+    font-size: 2.2em;
+}
+
+.dot {
+
+}
+
+.dot.active {
+
+}

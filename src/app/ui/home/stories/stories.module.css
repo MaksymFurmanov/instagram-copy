@@ -1,0 +1,9 @@
+.StoriesList {
+    display: flex;
+}
+
+.storiesCard {
+    border-radius: 50px;
+    width: 3.5em;
+    margin: 0.5em;
+}
