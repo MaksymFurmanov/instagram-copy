@@ -1,34 +1,43 @@
-'use client';
-
-import Image from "next/image";
-import {PostContent, User} from "@/app/lib/definitions";
+import {Post} from "@/app/lib/definitions";
 import styles from "./post.module.css";
 import ContentGallery from "@/app/ui/home/posts/content-gallery";
+import PostButtons from "@/app/ui/home/posts/post-buttons";
+import Header from "./post-card-header";
+import {checkFollowing, getContent, getUser} from "@/app/lib/data";
+import {user} from "@/app/lib/data-placeholders";
+import CommentSection from "@/app/ui/home/posts/comment-section";
 
-export default function PostCard({
-                                     content,
-                                     author
-                                 }: {
-                                     content: PostContent[],
-                                     author: User
-                                 }
-) {
-
+export default async function PostCard({post}: {
+    post: Post
+}) {
+    const content = await getContent(post.id);
+    const postAuthor = await getUser(post.user_id);
+    const isFollowing = await checkFollowing(user.id, post.user_id);
+    const commentExamples = [];
 
     return (
         <main className={styles.PostCard}>
-            <header>
-                <Image src={author.profile_pic_url}
-                       alt={author.nickname}
-                       width={20}
-                       height={20}
-                />
-                <div>
-                    <p>{author.nickname}</p>
-                </div>
-            </header>
+            <Header post={post}
+                    author={postAuthor}
+                    isFollowing={isFollowing}
+            />
 
             <ContentGallery content={content}/>
+
+            <PostButtons likes={post.likes}/>
+
+            {post.description &&
+                <div className={styles.description}>
+                    <p>
+                        <span>{postAuthor.nickname} </span>
+                        {post.description}
+                    </p>
+                </div>
+            }
+
+            <CommentSection commentCount={post.comments}
+                            commentExamples={commentExamples}
+            />
         </main>
     );
 }

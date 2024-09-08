@@ -1,10 +1,3 @@
-export type SidebarLinkType = {
-    label: string,
-    icon: any,
-    selected_icon: any,
-    href?: string,
-}
-
 export type User = {
     id: string,
     nickname: string,
@@ -32,7 +25,11 @@ export type Post = {
     created_time: string,
     likes: number,
     comments: number,
-    shares: number
+    shares: number,
+    description?: string,
+    audio_name?: string,
+    audio_author?: string,
+    audio_url?: string,
 }
 
 export type PostContent = {
@@ -41,4 +38,23 @@ export type PostContent = {
     content_type: 'image' | 'video',
     url: string,
     queue?: number
+}
+
+export type PostComment = {
+    id: string,
+    post_id: string,
+    user_id: string,
+    comment: string
+    created_time: string,
+    likes: number,
+    replies: number
+}
+
+export type PostCommentReplies = {
+    id: string,
+    post_comment_id: string,
+    user_id: string,
+    answer: string
+    created_time: string,
+    likes: number
 }

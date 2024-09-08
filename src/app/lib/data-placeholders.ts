@@ -1,4 +1,12 @@
-import {Follower, Post, PostContent, Story, User} from "@/app/lib/definitions";
+import {
+    Follower,
+    Post,
+    PostComment,
+    PostCommentReplies,
+    PostContent,
+    Story,
+    User
+} from "@/app/lib/definitions";
 
 export const users: User[] = [
     {
@@ -39,7 +47,7 @@ export const followers: Follower[] = [
         follower_id: '0',
     },
     {
-        user_id: '3',
+        user_id: '0',
         follower_id: '1',
     },
     {
@@ -76,7 +84,7 @@ export const stories: Story[] = [
         created_time: new Date(2024, 8, 12, 10, 36, 7).toString(),
         content_url: '',
         content_type: 'image'
-    },
+    }
 ]
 
 export const posts: Post[] = [
@@ -94,7 +102,17 @@ export const posts: Post[] = [
         created_time: new Date(2024, 8, 12, 9, 15, 27).toString(),
         likes: 2,
         comments: 3,
-        shares: 1
+        shares: 1,
+        audioName: 'Original audio'
+    },
+    {
+        id: '2',
+        user_id: '1',
+        created_time: new Date(2024, 8, 13, 5, 3, 7).toString(),
+        likes: 4,
+        comments: 0,
+        shares: 0,
+        description: 'Можем привезти для вас такие трусики, если хотите, напишите в комментарии😍'
     }
 ]
 
@@ -103,27 +121,41 @@ export const postsContent: PostContent[] = [
         id: '0',
         post_id: '0',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15.27.23%2Fjeremy_img1.jpg?alt=media&token=2a04f385-6c87-4bb4-9f52-f2e60f49f88a',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img1.jpg?alt=media&token=ce9438d1-2a92-4ee8-9149-aff09c274635',
         queue: 0
     },
     {
         id: '1',
         post_id: '0',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15.27.23%2Fjeremy_img2.jpg?alt=media&token=e9a2bcec-0608-4c38-bbb5-692ff42ece3f',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img2.jpg?alt=media&token=35d45c07-35d7-4d89-83f5-cf19d131cf81',
         queue: 1
     },
     {
         id: '2',
         post_id: '0',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15.27.23%2Fjeremy_img3.jpg?alt=media&token=2718e4af-5e2e-406c-bcad-0fbaf64c310d',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img3.jpg?alt=media&token=7e5d3f35-1c37-4705-bc62-2eb3583119b8',
         queue: 2
     },
     {
         id: '3',
         post_id: '1',
         content_type: 'video',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Flilia_tracy%2Fposts%2F9.15.27_12.8.24%2FCat%20-%20Made%20with%20Clipchamp.mp4?alt=media&token=d430fbf8-f3f1-49e4-9de5-dcad6fd9ce80'
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Flilia_tracy%2Fposts%2F12.8.24_09%3A15%3A27%2FCat%20-%20Made%20with%20Clipchamp.mp4?alt=media&token=e7cdfa4c-9016-439b-92f0-0ff681d3884d',
     },
+    {
+        id: '4',
+        post_id: '2',
+        content_type: 'image',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fally_manson%2Fposts%2F13.8.24_05%3A03%3A07%2Fally_manson.jpg?alt=media&token=502ec0b5-e703-4a36-87ad-697a7924758d',
+    }
 ]
+
+export const postComments: PostComment[] = [
+
+];
+
+export const postCommentAnswers: PostCommentReplies[] = [
+
+];

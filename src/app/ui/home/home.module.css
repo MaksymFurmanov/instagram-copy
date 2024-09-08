@@ -1,8 +1,10 @@
+/* Component Home */
 .Home {
     display: flex;
     justify-content: center;
 }
 
+/* Component HomeHeader */
 .HomeHeader {
     display: flex;
     gap: 1em;
@@ -17,15 +19,12 @@
     cursor: pointer;
 }
 
-.headerLink:hover {
-    color: black;
-}
-
-.headerLink + .selected {
+.headerLink.selected {
     color: black;
     font-weight: 700;
 }
 
+/* Component Recommendations */
 .Recommendations {
     display: none;
 }

@@ -1,19 +1,25 @@
-import HomeIcon from "../../../../public/home.svg";
-import HomeFilledIcon from "../../../../public/home-filled.svg";
-import SearchIcon from "../../../../public/search.svg";
-import ExploreIcon from "../../../../public/explore.svg";
-import ExploreFilledIcon from "../../../../public/explore-filled.svg";
-import ReelsIcon from "../../../../public/reels.svg";
-import ReelsFilledIcon from "../../../../public/reels-filled.svg";
-import MessagesIcon from "../../../../public/messages.svg";
-import MessagesFilledIcon from "../../../../public/messages-filled.svg";
-import NotificationsIcon from "../../../../public/notifications.svg";
-import NotificationsFilledIcon from "../../../../public/notifications-filled.svg";
-import CreateIcon from "../../../../public/create.svg";
-import ThreadsIcon from "../../../../public/threads.svg";
-import HamburgerMenu from "../../../../public/hamburger-menu.svg";
+import HomeIcon from "../../../../public/sidebar/home.svg";
+import HomeFilledIcon from "../../../../public/sidebar/home-filled.svg";
+import SearchIcon from "../../../../public/sidebar/search.svg";
+import ExploreIcon from "../../../../public/sidebar/explore.svg";
+import ExploreFilledIcon from "../../../../public/sidebar/explore-filled.svg";
+import ReelsIcon from "../../../../public/sidebar/reels.svg";
+import ReelsFilledIcon from "../../../../public/sidebar/reels-filled.svg";
+import MessagesIcon from "../../../../public/sidebar/messages.svg";
+import MessagesFilledIcon from "../../../../public/sidebar/messages-filled.svg";
+import NotificationsIcon from "../../../../public/sidebar/notifications.svg";
+import NotificationsFilledIcon from "../../../../public/sidebar/notifications-filled.svg";
+import CreateIcon from "../../../../public/sidebar/create.svg";
+import ThreadsIcon from "../../../../public/sidebar/threads.svg";
+import HamburgerMenu from "../../../../public/sidebar/hamburger-menu.svg";
 import {user} from "@/app/lib/data-placeholders";
-import {SidebarLinkType} from "@/app/lib/definitions";
+
+export type SidebarLinkType = {
+    label: string,
+    icon: any,
+    selected_icon: any,
+    href?: string,
+}
 
 export const topLinks: SidebarLinkType[] = [
     {

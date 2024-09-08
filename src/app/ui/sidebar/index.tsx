@@ -2,14 +2,12 @@
 
 import {Fragment} from 'react';
 import styles from "./sidebar.module.css";
-import Image from 'next/image';
-import {topLinks, bottomLinks} from "@/app/ui/sidebar/links";
-import logo from "../../../../public/logo.svg";
-import fullLogo from "../../../../public/full-logo.svg";
+import {topLinks, bottomLinks, SidebarLinkType} from "@/app/ui/sidebar/links";
+import LogoSmall from "../../../../public/sidebar/logo.svg";
+import FullLogo from "../../../../public/sidebar/full-logo.svg";
 import SidebarLink from "@/app/ui/sidebar/sidebar-link";
 import {useRouter} from "next/navigation";
 import {useEffect, useRef, useState} from "react";
-import {SidebarLinkType} from "@/app/lib/definitions";
 
 export default function Sidebar() {
     const {replace} = useRouter();
@@ -31,6 +29,21 @@ export default function Sidebar() {
         }
     }, []);
 
+    const [showLabels, setShowLabels] = useState<boolean>(false);
+    useEffect(() => {
+        const handleResize = () => {
+            setShowLabels(window.innerWidth > 1260);
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const navigationHandler = (link: SidebarLinkType) => {
         setSelected(link.label);
 
@@ -50,28 +63,22 @@ export default function Sidebar() {
         }
     }
 
+    const Logo = showLabels ? FullLogo : LogoSmall;
+
     return (
         <main className={styles.Sidebar} ref={containerRef}>
             <div>
                 <a href={"/"}>
-                    <Image className={styles.logoFull}
-                           src={fullLogo}
-                           alt={"Instagram"}
-                           width={103}
-                           height={29}
-                    />
-                    <Image className={styles.logo}
-                           src={logo}
-                           alt={"Instagram"}
-                           width={103}
-                           height={29}
-                    />
+                    <Logo className={
+                        showLabels ? styles.logoFull : styles.logo
+                    }/>
                 </a>
                 <div>
                     {topLinks.map((link, index) =>
                         <SidebarLink key={`top-${index}`}
                                      link={link}
                                      selected={selected === link.label}
+                                     showLabels={showLabels}
                                      onClick={() => navigationHandler(link)}
                         />
                     )}
@@ -85,6 +92,7 @@ export default function Sidebar() {
                         ? <SidebarLink key={`bottom-${index}`}
                                        link={link}
                                        selected={selected === link.label}
+                                       showLabels={showLabels}
                                        onClick={() => navigationHandler(link)}
                         />
                         : <Fragment key={`bottom-${index}`}/>;

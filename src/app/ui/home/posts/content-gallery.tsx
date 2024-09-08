@@ -30,9 +30,17 @@ export default function ContentGallery({content}: {
     };
 
     useEffect(() => {
-        galleryRef.current.addEventListener('scroll', handleScroll);
-        return () => galleryRef.current
-            .removeEventListener('scroll', handleScroll);
+        const gallery = galleryRef.current;
+
+        if (gallery) {
+            gallery.addEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            if (gallery) {
+                gallery.removeEventListener('scroll', handleScroll);
+            }
+        };
     }, []);
 
     return (
@@ -78,15 +86,16 @@ export default function ContentGallery({content}: {
                 <IoIosArrowDroprightCircle/>
             </button>
 
-            <div className={"dotsPagination"}>
-                {content.map((item, index) => (
-                    <button key={index}
-                            className={`${styles.dot} ${index === activeIndex
-                                ? styles.active : ''}`}
-                            onClick={() => scroll(index)}
-                    />
-                ))}
-            </div>
+            {content.length > 1 &&
+                <div className={styles.dotsPagination}>
+                    {content.map((item, index) => (
+                        <div key={index}
+                             className={`${styles.dot} 
+                             ${index === activeIndex ? styles.active : ''}`}
+                        />
+                    ))}
+                </div>
+            }
         </div>
     );
 }
