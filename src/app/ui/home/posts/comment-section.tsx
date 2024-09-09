@@ -26,12 +26,12 @@ export default function CommentSection({commentCount, commentExamples}: {
     const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
     return (
         <main>
-            {commentExamples && commentExamples.map((comment, index) => (
+{/*            {commentExamples && commentExamples.map((comment, index) => (
                 <div key={index}>
-                    <LikeStatus
+                    <LikeStatus key={index}
                         classname={styles.commentLike}/>
                 </div>
-            ))}
+            ))}*/}
             {commentCount > 0 &&
                 <a className={styles.commentsLink}>
                     <p>{commentCount === 1

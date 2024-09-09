@@ -9,10 +9,10 @@ export default function StoriesList(
         <main className={styles.StoriesList}>
             {storiesGrouped
                 .sort((a, b) => {
-                    const a_ = new Date(a.stories[0].created_time);
-                    const b_ = new Date(b.stories[0].created_time);
-                    if (a_ === b_) return 0;
-                    return a_ > b_ ? 1 : -1;
+                    const dateA = new Date(a.stories[0].created_time);
+                    const dateB = new Date(b.stories[0].created_time);
+                    if (dateA === dateB) return 0;
+                    return dateA > dateB ? 1 : -1;
                 })
                 .map((stories, index) =>
                     <Image key={index}
