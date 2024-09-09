@@ -12,7 +12,7 @@ export default function CommentSection({commentCount, commentExamples}: {
     commentExamples?: PostComment[]
 }) {
     const [comment, setComment] = useState<string>("");
-    //const [liked, setLiked] = useState<boolean>(false);
+    const [liked, setLiked] = useState<boolean>(false);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
@@ -23,17 +23,17 @@ export default function CommentSection({commentCount, commentExamples}: {
         }
     }, [comment]);
 
-    //const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
+    const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
     return (
         <main>
-{/*            {commentExamples && commentExamples.map((comment, index) => (
+            {commentExamples && commentExamples.map((comment, index) => (
                 <div key={index}>
                     <LikeStatus
                         className={styles.commentLike}
                         key={`like-icon-${index}`}
                     />
                 </div>
-            ))}*/}
+            ))}
             {commentCount > 0 &&
                 <a className={styles.commentsLink}>
                     <p>{commentCount === 1
