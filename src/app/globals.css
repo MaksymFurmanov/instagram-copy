@@ -15,7 +15,8 @@ body {
 }
 
 .ProfilePic {
-    height: 3em;
+    height: 2em;
+    width: 3em;
 }
 
 .ProfilePic img {
@@ -24,11 +25,11 @@ body {
 }
 
 .storiesCircle {
-    width: 3em;
-    height: 3em;
+    width: 3.5em;
+    height: 3.5em;
     position: relative;
     z-index: -1;
-    transform: translate(-17%, -83%);
+    transform: translate(-21.5%, -78.5%);
 }
 
 /* Styles for tablets in portrait mode */
