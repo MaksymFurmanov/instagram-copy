@@ -10,23 +10,27 @@ import {IoIosArrowDroprightCircle} from "react-icons/io";
 export default function ContentGallery({content}: {
     content: PostContent[]
 }) {
-    const galleryRef = useRef<HTMLDivElement>(null);
+    const galleryRef = useRef<HTMLDivElement | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
 
     const scroll = (index: number) => {
-        const scrollAmount = galleryRef.current.clientWidth * index;
-        galleryRef.current.scrollTo({
-            left: scrollAmount,
-            behavior: 'smooth',
-        });
-        setActiveIndex(index);
+        if(galleryRef.current) {
+            const scrollAmount = galleryRef.current.clientWidth * index;
+            galleryRef.current.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth',
+            });
+            setActiveIndex(index);
+        }
     };
 
     const handleScroll = () => {
-        const scrollLeft = galleryRef.current.scrollLeft;
-        const imageWidth = galleryRef.current.clientWidth;
-        const currentIndex = Math.round(scrollLeft / imageWidth);
-        setActiveIndex(currentIndex);
+        if(galleryRef.current) {
+            const scrollLeft = galleryRef.current.scrollLeft;
+            const imageWidth = galleryRef.current.clientWidth;
+            const currentIndex = Math.round(scrollLeft / imageWidth);
+            setActiveIndex(currentIndex);
+        }
     };
 
     useEffect(() => {

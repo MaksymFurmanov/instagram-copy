@@ -7,6 +7,7 @@ import Recommendations from "@/app/ui/home/recommendations";
 import Footer from "@/app/ui/footer";
 import styles from "./ui/home/home.module.css"
 import {Post} from "@/app/lib/definitions";
+import React from "react";
 
 export type HomeVariant = "" | "home" | "following" | undefined;
 

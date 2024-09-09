@@ -1,4 +1,4 @@
-import {Post} from "@/app/lib/definitions";
+import {Post, PostComment} from "@/app/lib/definitions";
 import styles from "./post.module.css";
 import ContentGallery from "@/app/ui/home/posts/content-gallery";
 import PostButtons from "@/app/ui/home/posts/post-buttons";
@@ -13,7 +13,11 @@ export default async function PostCard({post}: {
     const content = await getContent(post.id);
     const postAuthor = await getUser(post.user_id);
     const isFollowing = await checkFollowing(user.id, post.user_id);
-    const commentExamples = [];
+    const commentExamples: PostComment[] = [];
+
+    if(postAuthor === undefined) {
+        throw new Error("Post author not found");
+    }
 
     return (
         <main className={styles.PostCard}>

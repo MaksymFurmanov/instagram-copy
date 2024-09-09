@@ -87,7 +87,7 @@ export default function Sidebar() {
 
             <div>
                 {bottomLinks.map((link, index) => {
-                    const handleThreads = (showThreads | link.label !== "Threads");
+                    const handleThreads = (showThreads || link.label !== "Threads");
                     return handleThreads
                         ? <SidebarLink key={`bottom-${index}`}
                                        link={link}

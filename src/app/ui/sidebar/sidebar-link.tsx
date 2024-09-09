@@ -1,12 +1,13 @@
 import styles from "./sidebar.module.css";
 import Image from "next/image";
 import {SidebarLinkType} from "@/app/ui/sidebar/links";
+import {MouseEventHandler} from "react";
 
 export default function SidebarLink({link, selected, onClick, showLabels}: {
     link: SidebarLinkType,
     selected: boolean,
     showLabels: boolean,
-    onClick: Function
+    onClick: MouseEventHandler<HTMLElement>
 }) {
     const IconComponent = selected ? link.selected_icon : link.icon;
     return (

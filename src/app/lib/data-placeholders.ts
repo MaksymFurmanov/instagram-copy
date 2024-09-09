@@ -103,7 +103,7 @@ export const posts: Post[] = [
         likes: 2,
         comments: 3,
         shares: 1,
-        audioName: 'Original audio'
+        audio_name: 'Original audio'
     },
     {
         id: '2',

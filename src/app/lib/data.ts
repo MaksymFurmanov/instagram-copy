@@ -2,7 +2,7 @@ import {followers, posts, postsContent, stories, users} from "@/app/lib/data-pla
 import {Post, PostContent, Story, User} from "@/app/lib/definitions";
 
 export async function getUser(user_id: string):
-    Promise<User> {
+    Promise<User | undefined> {
     return users.find(user => user.id === user_id);
 }
 
@@ -18,8 +18,10 @@ export async function getContent(post_id: string):
     return postsContent
         .filter(content => content.post_id === post_id)
         .sort((a, b) => {
-            if (a.queue === b.queue) return 0;
-            return a.queue < b.queue ? 1 : -1;
+            const queueA = a.queue ?? 0;
+            const queueB = b.queue ?? 0;
+            if (queueA === queueB) return 0;
+            return queueA < queueB ? -1 : 1;
         });
 }
 
@@ -27,7 +29,7 @@ export async function fetchFYPPosts():
     Promise<Post[]> {
     return posts.sort((a, b) => {
         if (a.created_time === b.created_time) return 0;
-        return a.created_time < b.created_time ? 1 : -1;
+        return a.created_time < b.created_time ? -1 : 1;
     });
 }
 
@@ -44,7 +46,7 @@ export async function fetchFollowingPosts(user_id: string):
         .filter((post): post is Post => post !== null)
         .sort((a, b) => {
             if (a.created_time === b.created_time) return 0;
-            return a.created_time < b.created_time ? 1 : -1;
+            return a.created_time < b.created_time ? -1 : 1;
         });
 }
 
@@ -69,20 +71,21 @@ export async function fetchStoriesGrouped(userId: string):
         if (!storiesByUserId.has(story.user_id)) {
             storiesByUserId.set(story.user_id, []);
         }
-        storiesByUserId.get(story.user_id).push(story);
+        storiesByUserId.get(story.user_id)!.push(story);
     });
 
     const userFollowers: User[] = Array
         .from(userFollowerIds)
-        .map(followerId => users.find(user => user.id === followerId));
+        .map(followerId => users.find(user => user.id === followerId))
+        .filter(user => user !== undefined);
 
     return userFollowers.map(follower => {
         const storiesSorted = (storiesByUserId.get(follower.id) || [])
             .sort((a, b) => {
-                const a_ = new Date(a.created_time);
-                const b_ = new Date(b.created_time);
-                if (a_ === b_) return 0;
-                return a_ > b_ ? 1 : -1;
+                const dateA = new Date(a.created_time);
+                const dateB = new Date(b.created_time);
+                if (dateA === dateB) return 0;
+                return dateA > dateB ? -1 : 1;
             });
 
         return {

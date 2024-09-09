@@ -7,7 +7,7 @@ const timeUnitsInMilliseconds: Record<string, number> = {
     "year": 1000 * 60 * 60 * 24 * 365
 }
 
-export default function getTimePassed(datetime: Date) {
+export default function getTimePassed(datetime: Date): string {
     const now = new Date();
     let timeDiff = now.getTime() - datetime.getTime();
 

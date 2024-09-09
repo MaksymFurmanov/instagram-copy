@@ -1,4 +1,4 @@
-export default function StoryCircle({story}) {
+export default function StoryCircle() {
     return (<>
 
     </>);

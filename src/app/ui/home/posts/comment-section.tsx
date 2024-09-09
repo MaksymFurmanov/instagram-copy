@@ -13,20 +13,23 @@ export default function CommentSection({commentCount, commentExamples}: {
 }) {
     const [comment, setComment] = useState<string>("");
     const [liked, setLiked] = useState<boolean>(false);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
     useEffect(() => {
         const textarea = textareaRef.current;
-        textarea.style.height = 'auto';
-        textarea.style.height = `${Math.min(textarea.scrollHeight, 5 * 16)}px`;
+        if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${Math.min(textarea.scrollHeight, 5 * 16)}px`;
+        }
     }, [comment]);
 
     const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
     return (
         <main>
-            {commentExamples && commentExamples.map(comment => (
-                <div>
-                    <LikeStatus classname={styles.commentLike}/>
+            {commentExamples && commentExamples.map((comment, index) => (
+                <div key={index}>
+                    <LikeStatus
+                        classname={styles.commentLike}/>
                 </div>
             ))}
             {commentCount > 0 &&
@@ -39,11 +42,11 @@ export default function CommentSection({commentCount, commentExamples}: {
             }
             <div className={styles.addComment}>
                 <textarea ref={textareaRef}
-                         value={comment}
-                         onChange={e =>
-                             setComment(e.target.value)}
-                         placeholder={"Add comment..."}
-                         rows={1}
+                          value={comment}
+                          onChange={e =>
+                              setComment(e.target.value)}
+                          placeholder={"Add comment..."}
+                          rows={1}
                 />
                 <div>
                     {comment !== "" && <button>Post</button>}
