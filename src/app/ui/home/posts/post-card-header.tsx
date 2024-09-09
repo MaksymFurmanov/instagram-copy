@@ -1,8 +1,8 @@
-import Image from "next/image";
 import styles from "@/app/ui/home/posts/post.module.css";
 import DotsMenu from "../../../../../public/post-card/dots-menu.svg";
 import getTimePassed from "@/app/utils/getTimePassed";
 import {Post, User} from "@/app/lib/definitions";
+import ProfilePic from "@/app/ui/profile-pic";
 
 const Separator = () => <div className={styles.headerSeparator}/>;
 
@@ -15,11 +15,7 @@ export default function PostCardHeader({post, author, isFollowing}: {
 
     return (
         <header className={styles.PostCardHeader}>
-            <Image src={author.profile_pic_url}
-                   alt={author.nickname}
-                   width={20}
-                   height={20}
-            />
+            <ProfilePic profilePicUrl={author.profile_pic_url}/>
             <div className={styles.headerDetails}>
                 <div>
                     <p>{author.nickname}</p>

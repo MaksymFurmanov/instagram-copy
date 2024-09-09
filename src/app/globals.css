@@ -14,8 +14,21 @@ body {
     width: 100%;
 }
 
-.ProfileCard {
-    display: flex;
+.ProfilePic {
+    height: 3em;
+}
+
+.ProfilePic img {
+    width: 1em;
+    height: 1em;
+}
+
+.storiesCircle {
+    width: 3em;
+    height: 3em;
+    position: relative;
+    z-index: -1;
+    transform: translate(-17%, -83%);
 }
 
 /* Styles for tablets in portrait mode */
