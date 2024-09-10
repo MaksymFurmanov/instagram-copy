@@ -14,6 +14,7 @@ export const users: User[] = [
         nickname: 'jeremy_fox',
         date_of_birth: '12.08.1995',
         email: 'jeremy.fox@gmail.com',
+        password: 'password123',
         profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fprofile_picture.png?alt=media&token=3972e065-c3d7-4dbd-990e-cc669f4825dd'
     },
     {
@@ -21,6 +22,7 @@ export const users: User[] = [
         nickname: 'ally_manson',
         date_of_birth: '12.08.1995',
         email: 'ally.manson@gmail.com',
+        password: 'allypassword',
         profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fally_manson%2Fprofile_picture.jpg?alt=media&token=4df11358-6ee2-4d17-b5d1-1f47381944dc'
     },
     {
@@ -28,6 +30,7 @@ export const users: User[] = [
         nickname: 'lilia_tracy',
         date_of_birth: '12.08.1995',
         email: 'lilia.tracy@gmail.com',
+        password: 'tracylilia123',
         profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Flilia_tracy%2Fprofile_picture.jpg?alt=media&token=71e884a9-b596-40aa-accc-c225f5a3c4d1'
     },
     {
@@ -35,6 +38,7 @@ export const users: User[] = [
         nickname: 'maksym_furmanov',
         date_of_birth: '17.03.2004',
         email: 'furmanov.maksym@gmail.com',
+        password: 'maksymPassword',
         profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fmaksym_furmanov%2Fprofile_picture.jpg?alt=media&token=a4afe074-ee4b-4545-9cf1-7d81326802ee'
     }
 ]
@@ -156,6 +160,6 @@ export const postComments: PostComment[] = [
 
 ];
 
-export const postCommentAnswers: PostCommentReplies[] = [
+export const postCommentReplies: PostCommentReplies[] = [
 
 ];

@@ -3,6 +3,7 @@ export type User = {
     nickname: string,
     date_of_birth: string,
     email: string,
+    password: string,
     profile_pic_url: string,
 }
 
@@ -44,7 +45,7 @@ export type PostComment = {
     id: string,
     post_id: string,
     user_id: string,
-    comment: string
+    comment: string,
     created_time: string,
     likes: number,
     replies: number
@@ -54,7 +55,7 @@ export type PostCommentReplies = {
     id: string,
     post_comment_id: string,
     user_id: string,
-    answer: string
+    answer: string,
     created_time: string,
     likes: number
 }
