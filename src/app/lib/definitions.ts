@@ -1,4 +1,4 @@
-export type User = {
+export interface User {
     id: string,
     nickname: string,
     date_of_birth: string,
@@ -7,12 +7,12 @@ export type User = {
     profile_pic_url: string,
 }
 
-export type Follower = {
+export interface Follower {
     user_id: string,
     follower_id: string
 }
 
-export type Story = {
+export interface Story {
     id: string,
     user_id: string,
     created_time: string,
@@ -20,7 +20,7 @@ export type Story = {
     content_type: 'image' | 'video'
 }
 
-export type Post = {
+export interface Post {
     id: string,
     user_id: string,
     created_time: string,
@@ -33,7 +33,7 @@ export type Post = {
     audio_url?: string,
 }
 
-export type PostContent = {
+export interface PostContent {
     id: string,
     post_id: string,
     content_type: 'image' | 'video',
@@ -41,21 +41,19 @@ export type PostContent = {
     queue?: number
 }
 
-export type PostComment = {
+interface Comment {
     id: string,
-    post_id: string,
     user_id: string,
-    comment: string,
     created_time: string,
     likes: number,
+    comment: string,
+}
+
+export interface PostComment extends Comment {
+    post_id: string,
     replies: number
 }
 
-export type PostCommentReplies = {
-    id: string,
-    post_comment_id: string,
-    user_id: string,
-    answer: string,
-    created_time: string,
-    likes: number
+export interface PostCommentReply extends Comment {
+    comment_id: string,
 }

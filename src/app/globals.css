@@ -32,6 +32,36 @@ body {
     transform: translate(-21.5%, -78.5%);
 }
 
+.Overlay {
+    position: fixed;
+    z-index: 1000;
+    width: 100dvw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    background-color: rgba(143, 143, 143, 0.6);
+}
+
+.Overlay button,
+.Overlay svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.Overlay button {
+    position: fixed;
+    top: 3%;
+    right: 2%;
+    outline: none;
+    border: none;
+    background: none;
+}
+
+.Overlay svg {
+    stroke: white;
+    fill: #ffffff;
+}
+
 /* Styles for tablets in portrait mode */
 @media (min-width: 768px) {
     :root {

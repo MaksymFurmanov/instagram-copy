@@ -1,5 +1,5 @@
 import styles from "@/app/ui/home/posts/post.module.css";
-import DotsMenu from "../../../../../public/post-card/dots-menu.svg";
+import DotsMenu from "../../../../../public/dots-menu.svg";
 import getTimePassed from "@/app/utils/getTimePassed";
 import {Post, User} from "@/app/lib/definitions";
 import ProfilePic from "@/app/ui/profile-pic";
@@ -11,7 +11,7 @@ export default function PostCardHeader({post, author, isFollowing}: {
     author: User,
     isFollowing: boolean
 }) {
-    const timePassed = getTimePassed(new Date(post.created_time));
+    const timePassed = getTimePassed(post.created_time);
 
     return (
         <header className={styles.PostCardHeader}>

@@ -1,97 +1,132 @@
-import {followers, posts, postsContent, stories, users} from "@/app/lib/data-placeholders";
-import {Post, PostContent, Story, User} from "@/app/lib/definitions";
+import {
+    Follower,
+    Post,
+    PostComment,
+    PostCommentReply,
+    PostContent,
+    Story,
+    User
+} from "@/app/lib/definitions";
+import {sql} from "@vercel/postgres";
 
-export async function getUser(user_id: string):
+export async function getUser(userId: string):
     Promise<User | undefined> {
-    return users.find(user => user.id === user_id);
+    const data = await sql<User>`
+        SELECT *
+        FROM users
+        WHERE id = ${userId};
+    `;
+
+    return data.rows[0];
 }
 
-export async function checkFollowing(user_id: string, check_id: string):
+export async function checkFollowing(userId: string, checkId: string):
     Promise<boolean> {
-    return !!followers
-        .filter(user => user.user_id === user_id)
-        .find(user => user.follower_id === check_id);
+    const data = await sql<Follower>`
+        SELECT *
+        FROM followers
+        WHERE (user_id, follower_id) = (${userId}, ${checkId});
+    `;
+
+    return !!data.rows[0];
 }
 
-export async function getContent(post_id: string):
+export async function getContent(postId: string):
     Promise<PostContent[]> {
-    return postsContent
-        .filter(content => content.post_id === post_id)
-        .sort((a, b) => {
-            const queueA = a.queue ?? 0;
-            const queueB = b.queue ?? 0;
-            if (queueA === queueB) return 0;
-            return queueA < queueB ? -1 : 1;
-        });
+    const data = await sql<PostContent>`
+        SELECT *
+        FROM posts_content
+        WHERE post_id = ${postId}
+        ORDER BY queue;
+    `;
+
+    return data.rows;
+}
+
+export async function getComments(postId: string):
+    Promise<PostComment[]> {
+    const data = await sql<PostComment>`
+        SELECT *
+        FROM post_comments
+        WHERE post_id = ${postId}
+        ORDER BY created_time
+    `;
+
+    return data.rows;
+}
+
+export async function getCommentReplies(commentId: string):
+    Promise<PostCommentReply[]> {
+    const data = await sql<PostCommentReply>`
+        SELECT *
+        FROM post_comment_replies
+        WHERE comment_id = ${commentId}
+        ORDER BY created_time
+    `;
+
+    return data.rows;
 }
 
 export async function fetchFYPPosts():
     Promise<Post[]> {
-    return posts.sort((a, b) => {
-        if (a.created_time === b.created_time) return 0;
-        return a.created_time < b.created_time ? -1 : 1;
-    });
+    const data = await sql<Post>`
+        SELECT *
+        FROM posts
+        ORDER BY created_time;
+    `;
+    return data.rows;
 }
 
-export async function fetchFollowingPosts(user_id: string):
+export async function fetchFollowingPosts(userId: string):
     Promise<Post[]> {
-    const filteredPosts = await Promise.all(
-        posts.map(async post => {
-            const isFollowing = await checkFollowing(user_id, post.user_id);
-            return isFollowing ? post : null;
-        })
-    );
+    const data = await sql<Post>`
+        SELECT *
+        FROM posts
+        WHERE user_id ===
+              (SELECT follower_id
+               FROM followers
+               WHERE user_id === ${userId}).follower_id
+        ORDER BY created_time;
+    `;
 
-    return filteredPosts
-        .filter((post): post is Post => post !== null)
-        .sort((a, b) => {
-            if (a.created_time === b.created_time) return 0;
-            return a.created_time < b.created_time ? -1 : 1;
-        });
+    return data.rows;
 }
 
 export type StoriesGrouped = {
     user_id: string,
-    profile_pic_url: any,
+    profile_pic_url: string,
     stories: Story[]
 }
 
 export async function fetchStoriesGrouped(userId: string):
     Promise<StoriesGrouped[]> {
-    const userFollowerIds = new Set(
-        followers
-            .filter(follower => follower.user_id === userId)
-            .map(follower => follower.follower_id)
+    const userFollowers = await sql<{
+        user_id: string,
+        profile_pic_url: string
+    }>`
+        SELECT F.follower_id as user_id,
+               U.profile_pic_url
+        FROM followers as F,
+             users as U
+        WHERE F.user_id = ${userId}
+          AND U.id = F.follower_id
+    `;
+
+    console.log(userFollowers.rows)
+
+    return await Promise.all(
+        userFollowers.rows.map(async follower => {
+            const stories = await sql<Story>`
+                SELECT *
+                FROM stories
+                WHERE user_id = ${follower.user_id};
+            `;
+
+            return {
+                user_id: follower.user_id,
+                profile_pic_url: follower.profile_pic_url,
+                stories: stories.rows
+            }
+        })
     );
-
-    const storiesByUserId = new Map<string, Story[]>();
-
-    stories.forEach(story => {
-        if (!userFollowerIds.has(story.user_id)) return;
-        if (!storiesByUserId.has(story.user_id)) {
-            storiesByUserId.set(story.user_id, []);
-        }
-        storiesByUserId.get(story.user_id)!.push(story);
-    });
-
-    const userFollowers: User[] = Array
-        .from(userFollowerIds)
-        .map(followerId => users.find(user => user.id === followerId))
-        .filter(user => user !== undefined);
-
-    return userFollowers.map(follower => {
-        const storiesSorted = (storiesByUserId.get(follower.id) || [])
-            .sort((a, b) => {
-                const dateA = new Date(a.created_time);
-                const dateB = new Date(b.created_time);
-                if (dateA === dateB) return 0;
-                return dateA > dateB ? -1 : 1;
-            });
-
-        return {
-            user_id: follower.id,
-            profile_pic_url: follower.profile_pic_url,
-            stories: storiesSorted
-        }
-    });
 }

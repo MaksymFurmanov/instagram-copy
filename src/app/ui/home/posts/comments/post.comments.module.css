@@ -1,0 +1,38 @@
+.CommentWindow {
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    width: 82%;
+    height: 90%;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+.postContent {
+    width: 50%;
+}
+
+.commentsArea {
+
+}
+
+.Comment {
+    display: flex;
+
+}
+
+.commentActions {
+    display: flex;
+}
+
+.commentActions {
+    font-size: 0.8rem;
+}
+
+.commentActions svg {
+    width: 1em;
+}
+
+.commentLike svg {
+    width: 1.5em;
+}

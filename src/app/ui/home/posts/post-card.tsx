@@ -28,7 +28,7 @@ export default async function PostCard({post}: {
 
             <ContentGallery content={content}/>
 
-            <PostButtons likes={post.likes}/>
+            <PostButtons postId={post.id} likes={post.likes}/>
 
             {post.description &&
                 <div className={styles.description}>

@@ -7,14 +7,14 @@ const timeUnitsInMilliseconds: Record<string, number> = {
     "year": 1000 * 60 * 60 * 24 * 365
 }
 
-export default function getTimePassed(datetime: Date): string {
+export default function getTimePassed(datetime: string): string {
     const now = new Date();
-    let timeDiff = now.getTime() - datetime.getTime();
+    const inputDate = new Date(datetime);
+    let timeDiff = now.getTime() - inputDate.getTime();
 
-    if (timeDiff > 0) {
+    if (timeDiff < 0) {
         throw new Error("Future date error");
     }
-    timeDiff = -timeDiff;
 
     if (timeDiff < timeUnitsInMilliseconds["second"]) {
         return "now";

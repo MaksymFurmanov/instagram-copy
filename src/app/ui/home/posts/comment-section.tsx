@@ -4,8 +4,8 @@ import styles from "./post.module.css";
 import {PostComment} from "@/app/lib/definitions";
 import {useEffect, useRef, useState} from "react";
 import SmileIcon from "../../../../../public/post-card/smile.svg";
-import LikeIcon from "../../../../../public/post-card/like.svg";
-import LikeFilledIcon from "../../../../../public/post-card/like-filled.svg";
+import LikeIcon from "../../../../../public/like.svg";
+import LikeFilledIcon from "../../../../../public/like-filled.svg";
 
 export default function CommentSection({commentCount, commentExamples}: {
     commentCount: number,
