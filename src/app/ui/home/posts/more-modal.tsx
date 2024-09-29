@@ -1,7 +1,7 @@
 
 import {MouseEventHandler} from "react";
 
-export default function ReportWindow({onClose}: {
+export default function MoreModal({onClose}: {
     onClose: MouseEventHandler<HTMLButtonElement>
 }) {
     return (

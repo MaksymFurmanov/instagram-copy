@@ -5,7 +5,7 @@ import styles from "./sidebar.module.css";
 import {topLinks, bottomLinks, SidebarLinkType} from "@/app/ui/sidebar/links";
 import LogoSmall from "../../../../public/sidebar/logo.svg";
 import FullLogo from "../../../../public/sidebar/full-logo.svg";
-import SidebarLink from "@/app/ui/sidebar/sidebar-link";
+import Link from "@/app/ui/sidebar/link";
 import {useRouter} from "next/navigation";
 import {useEffect, useRef, useState} from "react";
 
@@ -75,11 +75,11 @@ export default function Sidebar() {
                 </a>
                 <div>
                     {topLinks.map((link, index) =>
-                        <SidebarLink key={`top-${index}`}
-                                     link={link}
-                                     selected={selected === link.label}
-                                     showLabels={showLabels}
-                                     onClick={() => navigationHandler(link)}
+                        <Link key={`top-${index}`}
+                              link={link}
+                              selected={selected === link.label}
+                              showLabels={showLabels}
+                              onClick={() => navigationHandler(link)}
                         />
                     )}
                 </div>
@@ -89,11 +89,11 @@ export default function Sidebar() {
                 {bottomLinks.map((link, index) => {
                     const handleThreads = (showThreads || link.label !== "Threads");
                     return handleThreads
-                        ? <SidebarLink key={`bottom-${index}`}
-                                       link={link}
-                                       selected={selected === link.label}
-                                       showLabels={showLabels}
-                                       onClick={() => navigationHandler(link)}
+                        ? <Link key={`bottom-${index}`}
+                                link={link}
+                                selected={selected === link.label}
+                                showLabels={showLabels}
+                                onClick={() => navigationHandler(link)}
                         />
                         : <Fragment key={`bottom-${index}`}/>;
                 })}

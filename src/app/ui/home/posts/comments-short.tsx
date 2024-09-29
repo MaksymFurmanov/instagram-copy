@@ -3,37 +3,34 @@
 import styles from "./post.module.css";
 import {PostComment} from "@/app/lib/definitions";
 import {useEffect, useRef, useState} from "react";
-import SmileIcon from "../../../../../public/post-card/smile.svg";
+import SmileIcon from "../../../../../public/smile.svg";
 import LikeIcon from "../../../../../public/like.svg";
 import LikeFilledIcon from "../../../../../public/like-filled.svg";
+import useScalingTextarea from "@/app/utils/useScalingTextarea";
 
-export default function CommentSection({commentCount, commentExamples}: {
+export default function CommentsShort({commentCount, commentExamples}: {
     commentCount: number,
     commentExamples?: PostComment[]
 }) {
     const [comment, setComment] = useState<string>("");
     const [liked, setLiked] = useState<boolean>(false);
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-    useEffect(() => {
-        const textarea = textareaRef.current;
-        if (textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = `${Math.min(textarea.scrollHeight, 5 * 16)}px`;
-        }
-    }, [comment]);
+    const textareaRef = useScalingTextarea(4, [comment]);
 
     const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
+
     return (
         <main>
-            {commentExamples && commentExamples.map((comment, index) => (
-                <div key={index}>
-                    <LikeStatus
-                        className={styles.commentLike}
-                        key={`like-icon-${index}`}
-                    />
-                </div>
-            ))}
+            {commentExamples &&
+                commentExamples.map((comment, index) => (
+                    <div key={index}>
+                        <LikeStatus
+                            className={styles.commentLike}
+                            key={`like-icon-${index}`}
+                        />
+                    </div>
+                ))
+            }
+
             {commentCount > 0 &&
                 <a className={styles.commentsLink}>
                     <p>{commentCount === 1
@@ -42,6 +39,7 @@ export default function CommentSection({commentCount, commentExamples}: {
                     }</p>
                 </a>
             }
+
             <div className={styles.addComment}>
                 <textarea ref={textareaRef}
                           value={comment}
@@ -51,7 +49,9 @@ export default function CommentSection({commentCount, commentExamples}: {
                           rows={1}
                 />
                 <div>
-                    {comment !== "" && <button>Post</button>}
+                    <button disabled={!comment}>
+                        Post
+                    </button>
                     <SmileIcon/>
                 </div>
             </div>

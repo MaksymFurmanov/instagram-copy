@@ -24,6 +24,8 @@ export interface Post {
     id: string,
     user_id: string,
     created_time: string,
+    content_width: number,
+    content_height: number,
     likes: number,
     comments: number,
     shares: number,

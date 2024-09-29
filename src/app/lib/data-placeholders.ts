@@ -96,6 +96,8 @@ export const posts: Post[] = [
         id: '039a3096-98d5-4698-a065-6696bd1a288f',
         user_id: '644f87a3-4154-49c8-a6b8-ece398af247e',
         created_time: new Date(2024, 7, 12, 15, 27, 23).toISOString().slice(0, 19),
+        content_width: 568,
+        content_height: 710,
         likes: 2,
         comments: 3,
         shares: 1
@@ -104,6 +106,8 @@ export const posts: Post[] = [
         id: '79718480-9377-4e18-aea7-0a8c110bedc4',
         user_id: '61af641d-3496-40d8-88e0-cc54f432393d',
         created_time: new Date(2024, 7, 12, 9, 15, 27).toISOString().slice(0, 19),
+        content_width: 1920,
+        content_height: 1080,
         likes: 2,
         comments: 3,
         shares: 1,
@@ -113,6 +117,8 @@ export const posts: Post[] = [
         id: '7ae70bf4-0911-4fe0-8e6b-d178a4ebba17',
         user_id: '82984017-d440-489b-ad02-6913c404b902',
         created_time: new Date(2024, 7, 11, 5, 3, 7).toISOString().slice(0, 19),
+        content_width: 800,
+        content_height: 1000,
         likes: 4,
         comments: 0,
         shares: 0,
@@ -125,21 +131,21 @@ export const postsContent: PostContent[] = [
         id: '8a3a6131-3589-49b3-8be0-65cb72db9fe2',
         post_id: '039a3096-98d5-4698-a065-6696bd1a288f',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img1.jpg?alt=media&token=ce9438d1-2a92-4ee8-9149-aff09c274635',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img1.jpg?alt=media&token=736e72cd-e9f0-484c-acda-82a4a86a2218',
         queue: 0
     },
     {
         id: '98880766-838e-469a-b25c-07ede0f72e61',
         post_id: '039a3096-98d5-4698-a065-6696bd1a288f',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img2.jpg?alt=media&token=35d45c07-35d7-4d89-83f5-cf19d131cf81',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img2.jpg?alt=media&token=affbe932-0154-4b8e-9e56-496100bbd02d',
         queue: 1
     },
     {
         id: '4f2f3cb2-f56e-4af6-b146-07542bfd40e0',
         post_id: '039a3096-98d5-4698-a065-6696bd1a288f',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img3.jpg?alt=media&token=7e5d3f35-1c37-4705-bc62-2eb3583119b8',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fjeremy_fox%2Fposts%2F12.8.24_15%3A27%3A23%2Fjeremy_img3.jpg?alt=media&token=ab2b9d72-c896-4228-88aa-291dfd9e10ed',
         queue: 2
     },
     {
@@ -152,7 +158,7 @@ export const postsContent: PostContent[] = [
         id: 'ee9eaaa0-ecbd-42ce-9e3b-7cf72c66ed63',
         post_id: '7ae70bf4-0911-4fe0-8e6b-d178a4ebba17',
         content_type: 'image',
-        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fally_manson%2Fposts%2F13.8.24_05%3A03%3A07%2Fally_manson.jpg?alt=media&token=502ec0b5-e703-4a36-87ad-697a7924758d',
+        url: 'https://firebasestorage.googleapis.com/v0/b/instagram-copy-555fb.appspot.com/o/user%2Fally_manson%2Fposts%2F13.8.24_05%3A03%3A07%2Fally_manson.jpg?alt=media&token=502ec0b5-e703-4a36-87ad-697a7924758d'
     }
 ]
 

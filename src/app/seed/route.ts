@@ -9,7 +9,17 @@ import {
     stories,
     users
 } from "@/app/lib/data-placeholders";
-import {Follower, Post, PostCommentReply, PostContent, Story, User} from "@/app/lib/definitions";
+import {
+    Follower,
+    Post,
+    PostCommentReply,
+    PostContent,
+    Story,
+    User
+} from "@/app/lib/definitions";
+import {unstable_noStore} from 'next/cache';
+
+unstable_noStore();
 
 const client = await db.connect();
 
@@ -87,7 +97,6 @@ async function seedStories() {
 
     return await Promise.all(
         stories.map(async (story: Story) => {
-            console.log(story);
             return client.sql`
                 INSERT INTO stories (id,
                                      user_id,
@@ -110,16 +119,18 @@ async function seedPosts() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS posts
         (
-            id            UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            user_id       UUID        NOT NULL,
-            created_time  VARCHAR(24) NOT NULL,
-            likes         NUMERIC     DEFAULT 0 NOT NULL,
-            comments      NUMERIC     DEFAULT 0 NOT NULL,
-            shares        NUMERIC     DEFAULT 0 NOT NULL,
-            description   VARCHAR(255),
-            audio_name    VARCHAR(255),
-            audion_author VARCHAR(255),
-            audio_url     TEXT,
+            id             UUID    DEFAULT uuid_generate_v4() PRIMARY KEY,
+            user_id        UUID              NOT NULL,
+            created_time   VARCHAR(24)       NOT NULL,
+            content_width  NUMERIC           NOT NULL,
+            content_height NUMERIC           NOT NULL,
+            likes          NUMERIC DEFAULT 0 NOT NULL,
+            comments       NUMERIC DEFAULT 0 NOT NULL,
+            shares         NUMERIC DEFAULT 0 NOT NULL,
+            description    VARCHAR(255),
+            audio_name     VARCHAR(255),
+            audion_author  VARCHAR(255),
+            audio_url      TEXT,
             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
         )
     `;
@@ -130,6 +141,8 @@ async function seedPosts() {
                 'id',
                 'user_id',
                 'created_time',
+                'content_width',
+                'content_height',
                 'likes',
                 'comments',
                 'shares',
@@ -139,18 +152,8 @@ async function seedPosts() {
                 post.audio_url !== undefined ? 'audio_url' : null,
             ].filter(Boolean);
 
-            const values = [
-                post.id,
-                post.user_id,
-                post.created_time,
-                post.likes,
-                post.comments,
-                post.shares,
-                post.description,
-                post.audio_name,
-                post.audio_author,
-                post.audio_url,
-            ].filter(value => value !== undefined);
+            const values = columns.map(column =>
+                post[column as keyof Post]);
 
             const columnList = columns.join(', ');
             const valuePlaceholders = values
@@ -192,13 +195,8 @@ async function seedPostsContent() {
                     postContent.queue !== undefined ? 'queue' : null
                 ].filter(Boolean);
 
-                const values = [
-                    postContent.id,
-                    postContent.post_id,
-                    postContent.content_type,
-                    postContent.url,
-                    postContent.queue
-                ].filter(value => value !== undefined);
+                const values = columns.map(column =>
+                    postContent[column as keyof PostContent]);
 
                 const columnList = columns.join(', ');
                 const valuePlaceholders = values
@@ -222,13 +220,13 @@ async function seedPostsComments() {
     await client.sql`
         CREATE TABLE IF NOT EXISTS posts_comments
         (
-            id           UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-            post_id      UUID        NOT NULL,
-            user_id      UUID        NOT NULL,
-            comment      TEXT        NOT NULL,
-            created_time VARCHAR(24) NOT NULL,
-            likes        NUMERIC     DEFAULT 0 NOT NULL,
-            replies      NUMERIC     DEFAULT 0 NOT NULL,
+            id           UUID    DEFAULT uuid_generate_v4() PRIMARY KEY,
+            post_id      UUID              NOT NULL,
+            user_id      UUID              NOT NULL,
+            comment      TEXT              NOT NULL,
+            created_time VARCHAR(24)       NOT NULL,
+            likes        NUMERIC DEFAULT 0 NOT NULL,
+            replies      NUMERIC DEFAULT 0 NOT NULL,
             CONSTRAINT fk_post FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
             CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
         )
@@ -238,12 +236,12 @@ async function seedPostsComments() {
         postsComments.map(async (postComment) => {
             return await client.sql`
                 INSERT INTO posts_comments (id,
-                                           post_id,
-                                           user_id,
-                                           comment,
-                                           created_time,
-                                           likes,
-                                           replies)
+                                            post_id,
+                                            user_id,
+                                            comment,
+                                            created_time,
+                                            likes,
+                                            replies)
                 VALUES (${postComment.id},
                         ${postComment.post_id},
                         ${postComment.user_id},
@@ -276,12 +274,14 @@ async function seedPostsCommentsReplies() {
     return await Promise.all(
         postsCommentsReplies.map(async (postCommentReply: PostCommentReply) => {
             return await client.sql`
-                INSERT INTO posts_comments_replies (comment_id,
+                INSERT INTO posts_comments_replies (id,
+                                                    comment_id,
                                                     user_id,
                                                     created_time,
                                                     likes,
                                                     comment)
-                VALUES (${postCommentReply.comment_id},
+                VALUES (${postCommentReply.id},
+                        ${postCommentReply.comment_id},
                         ${postCommentReply.user_id},
                         ${postCommentReply.created_time},
                         ${postCommentReply.likes},
@@ -292,16 +292,60 @@ async function seedPostsCommentsReplies() {
     );
 }
 
+async function createRepliesTriggers() {
+    /* Updating function */
+    await client.sql`
+            CREATE OR REPLACE FUNCTION update_reply_count()
+            RETURNS TRIGGER AS $$
+            BEGIN
+                UPDATE posts_comments
+                SET replies = (SELECT COUNT(*) 
+                FROM posts_comments_replies 
+                WHERE comment_id = NEW.comment_id)
+                WHERE id = NEW.comment_id;
+
+                RETURN NEW;
+            END;
+            $$ LANGUAGE plpgsql;
+        `;
+
+    /* Inserting trigger */
+    await client.sql`
+            CREATE OR REPLACE TRIGGER count_replies_after_insert
+            AFTER INSERT ON posts_comments_replies
+            FOR EACH ROW
+            EXECUTE FUNCTION update_reply_count();
+        `;
+
+    /* Updating trigger */
+    await client.sql`
+            CREATE OR REPLACE TRIGGER count_replies_after_update
+            AFTER UPDATE ON posts_comments_replies
+            FOR EACH ROW
+            EXECUTE FUNCTION update_reply_count();
+        `;
+
+    /* Deleting trigger */
+    await client.sql`
+            CREATE OR REPLACE TRIGGER count_replies_after_delete
+            AFTER DELETE ON posts_comments_replies
+            FOR EACH ROW
+            EXECUTE FUNCTION update_reply_count();
+        `;
+}
+
 export async function GET() {
     try {
         await client.sql`BEGIN`;
-/*        await seedUsers();
+        await seedUsers();
         await seedFollowers();
         await seedStories();
         await seedPosts();
         await seedPostsContent();
-        await seedPostsComments();*/
+        await seedPostsComments();
         await seedPostsCommentsReplies();
+        await createRepliesTriggers();
+
         await client.sql`COMMIT`;
 
         return Response.json({message: 'Database seeded successfully'});

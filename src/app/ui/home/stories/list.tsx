@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import {StoriesGrouped} from "@/app/lib/data";
+import {fetchStoriesGrouped, StoriesGrouped} from "@/app/lib/data";
 import styles from "./stories.module.css";
+import {user} from "@/app/lib/data-placeholders";
 
-export default function StoriesList(
-    {storiesGrouped}: { storiesGrouped: StoriesGrouped[] }
-) {
+export default async function StoriesList() {
+    const storiesGrouped = await fetchStoriesGrouped(user.id);
+
     return (
         <main className={styles.StoriesList}>
             {storiesGrouped

@@ -8,9 +8,12 @@ import {
     User
 } from "@/app/lib/definitions";
 import {sql} from "@vercel/postgres";
+import {unstable_noStore} from 'next/cache';
+
+unstable_noStore();
 
 export async function getUser(userId: string):
-    Promise<User | undefined> {
+    Promise<User> {
     const data = await sql<User>`
         SELECT *
         FROM users
@@ -31,6 +34,17 @@ export async function checkFollowing(userId: string, checkId: string):
     return !!data.rows[0];
 }
 
+export async function getPost(postId: string):
+    Promise<Post> {
+    const data = await sql<Post>`
+        SELECT *
+        FROM posts
+        WHERE id = ${postId};
+    `;
+
+    return data.rows[0];
+}
+
 export async function getContent(postId: string):
     Promise<PostContent[]> {
     const data = await sql<PostContent>`
@@ -47,9 +61,9 @@ export async function getComments(postId: string):
     Promise<PostComment[]> {
     const data = await sql<PostComment>`
         SELECT *
-        FROM post_comments
+        FROM posts_comments
         WHERE post_id = ${postId}
-        ORDER BY created_time
+        ORDER BY created_time;
     `;
 
     return data.rows;
@@ -59,9 +73,9 @@ export async function getCommentReplies(commentId: string):
     Promise<PostCommentReply[]> {
     const data = await sql<PostCommentReply>`
         SELECT *
-        FROM post_comment_replies
+        FROM posts_comments_replies
         WHERE comment_id = ${commentId}
-        ORDER BY created_time
+        ORDER BY created_time;
     `;
 
     return data.rows;
@@ -109,10 +123,8 @@ export async function fetchStoriesGrouped(userId: string):
         FROM followers as F,
              users as U
         WHERE F.user_id = ${userId}
-          AND U.id = F.follower_id
+          AND U.id = F.follower_id;
     `;
-
-    console.log(userFollowers.rows)
 
     return await Promise.all(
         userFollowers.rows.map(async follower => {

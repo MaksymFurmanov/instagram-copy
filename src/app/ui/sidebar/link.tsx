@@ -3,7 +3,7 @@ import Image from "next/image";
 import {SidebarLinkType} from "@/app/ui/sidebar/links";
 import {MouseEventHandler} from "react";
 
-export default function SidebarLink({link, selected, onClick, showLabels}: {
+export default function Link({link, selected, onClick, showLabels}: {
     link: SidebarLinkType,
     selected: boolean,
     showLabels: boolean,
@@ -15,7 +15,6 @@ export default function SidebarLink({link, selected, onClick, showLabels}: {
             {link.label === "Profile" ? (
                 <Image src={link.icon}
                        alt={link.label}
-                       style={{borderRadius: "50px"}}
                        width={25}
                        height={25}
                 />

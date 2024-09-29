@@ -28,15 +28,7 @@
     margin-bottom: 1.5em;
 }
 
-.more {
-    transform: scale(1.5) !important;
-}
-
-.more:hover {
-    transform: scale(1.6) !important;
-}
-
-/* Component SidebarLink */
+/* Component Link */
 .SidebarLink {
     display: flex;
     align-items: center;
@@ -47,22 +39,39 @@
     transition: background-color 1ms ease, width 1ms ease;
 }
 
-.SidebarLink:hover {
-    background-color: rgb(242 242 242);;
-}
-
+.SidebarLink img,
 .SidebarLink svg {
-    width: 1.4em;
-    height: 1.4em;
     transition: transform 200ms ease;
 }
 
-.SidebarLink:hover svg {
-    transform: scale(1.1);
+.SidebarLink svg {
+     width: 1.4em;
+     height: 1.4em;
+ }
+
+.SidebarLink img {
+    border-radius: 25px;
+}
+
+.more {
+    transform: scale(1.5) !important;
 }
 
 .SidebarLink p {
     padding-left: 1.2em;
+}
+
+.SidebarLink:hover {
+    background-color: rgb(242 242 242);;
+}
+
+.SidebarLink:hover svg,
+.SidebarLink:hover img {
+    transform: scale(1.1);
+}
+
+.SidebarLink:hover .more{
+    transform: scale(1.6) !important;
 }
 
 /* Styles for tablets in portrait mode */

@@ -4,9 +4,8 @@ import {usePathname, useSearchParams} from "next/navigation";
 import {useRouter} from "next/navigation";
 import styles from "./home.module.css";
 import clsx from "clsx";
-import {HomeVariant} from "@/app/page";
 
-export default function HomeHeader({variant}: {variant: HomeVariant}) {
+export default function HomeHeader({variant}: { variant: string }) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const {replace} = useRouter();
@@ -19,18 +18,20 @@ export default function HomeHeader({variant}: {variant: HomeVariant}) {
 
     return (
         <header className={styles.HomeHeader}>
-            <p className={clsx(
-                styles.headerLink,
-                variant === "home" && styles.selected
-            )}
+            <p className={
+                clsx(
+                    styles.headerLink,
+                    variant === "home" && styles.selected
+                )}
                onClick={() => handleNavigation("home")}
             >
                 For you
             </p>
-            <p className={clsx(
-                styles.headerLink,
-                variant === "following" && styles.selected
-            )}
+            <p className={
+                clsx(
+                    styles.headerLink,
+                    variant === "following" && styles.selected
+                )}
                onClick={() => handleNavigation("following")}
             >
                 Following

@@ -7,24 +7,19 @@
 /* PostCard component */
 .PostCard {
     font-size: 14px;
-    padding: 1em 0;
+    padding-bottom: 1em;
     border-bottom: 1px solid #e1e1e1;
 }
 
-.description {
+.Description {
     display: flex;
 }
 
-.description span {
-    font-weight: 600;
-}
-
-/* PostCardHeader component */
+/* AutorHeader component */
 .PostCardHeader {
     display: flex;
     align-items: center;
-    padding-left: 0.2em;
-    padding-bottom: 1em;
+    padding: 1em 0 1em 0.2em;
 }
 
 .PostCardHeader img {
@@ -57,11 +52,9 @@
 }
 
 .headerSeparator {
-    width: 0.3em;
-    height: 0.3em;
-    border-radius: 25px;
-    background-color: gray;
-    margin: 0 0.4em;
+    width: 1em;
+    height: 1em;
+    margin: 0 0.1em;
 }
 
 .dotsMenu {
@@ -99,8 +92,6 @@
 .contentWrapper {
     position: relative;
     min-width: 100%;
-    height: 0;
-    padding-bottom: 125%;
     scroll-snap-align: start;
 }
 
@@ -143,6 +134,33 @@
     background-color: #e0e0e0;
 }
 
+/* Video component */
+.Video {
+    cursor: pointer;
+}
+
+.muteBtn {
+    height: 0;
+}
+
+.playBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4em;
+    height: 4em;
+    fill: rgba(255, 255, 255, 0.75);
+}
+
+.muteBtn svg {
+    position: absolute;
+    bottom: 6%;
+    right: 4%;
+    width: 2em;
+    height: 2em;
+}
+
 /* PostButtons component */
 .BtnContainer {
     display: flex;
@@ -161,11 +179,6 @@
 .BtnContainer svg {
     transition: color 0.5s ease;
 }
-
-/* Apply it to only non-filled svg */
-/*.BtnContainer svg:hover {
-    stroke: gray;
-}*/
 
 .BtnContainer svg {
     width: 2em;
@@ -190,13 +203,7 @@
     animation-duration: 0.3s;
 }
 
-/* CommentSection component */
-.addComment svg,
-.commentLike {
-    width: 0.75em;
-    height: 0.75em;
-}
-
+/* CommentsShort component */
 .addComment {
     display: flex;
     align-items: center;
@@ -215,12 +222,21 @@
     font-weight: 600;
 }
 
+.addComment button:disabled {
+    color: rgb(179, 219, 255, 1);
+}
+
 .addComment textarea {
     border: none;
     outline: none;
     resize: none;
     width: 100%;
     min-height: 1em;
+}
+
+.addComment svg {
+    width: 0.75em;
+    height: 0.75em;
 }
 
 .commentsLink {
@@ -230,4 +246,80 @@
 
 .commentsLink p {
     margin-top: 0.3em;
+}
+
+/* Comment component*/
+.Comment {
+    display: flex;
+    margin: 0.8em 0;
+}
+
+.commentContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentActions > * {
+    margin-right: 1em;
+}
+
+.commentActions,
+.replyToggle {
+    font-size: 0.8rem;
+}
+
+.commentActions button {
+    font-weight: 600;
+}
+
+.commentActions,
+.commentActions g,
+.replyToggle {
+    color: gray;
+    fill: gray;
+    stroke: #c5c5c5;
+}
+
+.commentActions {
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+}
+
+.replyToggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 3em;
+}
+
+.replyToggle svg {
+    width: 2em;
+    height: 1em;
+    margin-right: 0.3em;
+}
+
+.replyToggle img {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.moreActions {
+    width: 1.3em;
+    height: 1.3em;
+    color: rgba(219, 219, 219, 1);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.commentContainer:hover .moreActions {
+    visibility: visible;
+}
+
+.commentLike {
+    width: 1.3em;
+    height: 1.3em;
+    cursor: pointer;
+    margin-top: 0.5em;
+    margin-left: 0.5em;
 }
