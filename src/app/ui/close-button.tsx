@@ -1,7 +1,6 @@
 'use client';
 
 import CloseIcon from "../../../public/close.svg";
-import {MouseEventHandler} from "react";
 import {useRouter} from "next/navigation";
 
 export default function CloseButton() {

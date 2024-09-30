@@ -2,7 +2,7 @@
 
 import styles from "./post.module.css";
 import {PostComment} from "@/app/lib/definitions";
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import SmileIcon from "../../../../../public/smile.svg";
 import LikeIcon from "../../../../../public/like.svg";
 import LikeFilledIcon from "../../../../../public/like-filled.svg";

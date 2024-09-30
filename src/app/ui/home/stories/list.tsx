@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {fetchStoriesGrouped, StoriesGrouped} from "@/app/lib/data";
+import {fetchStoriesGrouped} from "@/app/lib/data";
 import styles from "./stories.module.css";
 import {user} from "@/app/lib/data-placeholders";
 
