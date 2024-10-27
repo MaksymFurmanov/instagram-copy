@@ -3,12 +3,13 @@ import {
     Post,
     PostComment,
     PostCommentReply,
-    PostContent,
+    PostContent, StoriesGrouped,
     Story,
     User
 } from "@/app/lib/definitions";
 import {sql} from "@vercel/postgres";
 import {unstable_noStore} from 'next/cache';
+import z from 'zod';
 
 unstable_noStore();
 
@@ -69,6 +70,33 @@ export async function getComments(postId: string):
     return data.rows;
 }
 
+const CommentFormSchema = z.object({
+    comment: z.string()
+});
+
+export async function postComment(prevState: unknown,
+                                  formData: FormData) {
+    const userId = formData.get("user_id") as string;
+    const postId = formData.get("post_id") as string;
+    const createdTime = new Date().toISOString().slice(0, 19);
+    const comment = formData.get("comment") as string;
+
+    if(!userId) throw new Error("Error uploading the comment. No user provided");
+    if(!postId) throw new Error("Error uploading the comment. No post provided");
+    if(!comment) throw new Error("Error uploading the comment. No comment provided");
+
+    return await sql`
+        INSERT INTO posts_comments (user_id,
+                                    post_id,
+                                    created_time,
+                                    comment)
+        VALUES (${userId},
+                ${postId},
+                ${createdTime},
+                ${comment})
+    `;
+}
+
 export async function getCommentReplies(commentId: string):
     Promise<PostCommentReply[]> {
     const data = await sql<PostCommentReply>`
@@ -79,6 +107,10 @@ export async function getCommentReplies(commentId: string):
     `;
 
     return data.rows;
+}
+
+export async function postCommentReply() {
+
 }
 
 export async function fetchFYPPosts():
@@ -106,10 +138,35 @@ export async function fetchFollowingPosts(userId: string):
     return data.rows;
 }
 
-export type StoriesGrouped = {
-    user_id: string,
-    profile_pic_url: string,
-    stories: Story[]
+export async function fetchFriendsSuggestions(user_id: string):
+    Promise<User[]> {
+    const data = await sql<User>`
+        SELECT *
+        FROM users
+        WHERE id IN (SELECT f1.follower_id
+                     FROM followers f1
+                              INNER JOIN (SELECT follower_id
+                                          FROM followers
+                                          WHERE user_id = ${user_id}) f2
+                                         ON f1.user_id = f2.follower_id)
+          AND id != ${user_id};
+    `;
+
+    return data.rows;
+}
+
+export async function fetchMutualFollowersNames(userId1: string, userId2: string):
+    Promise<string[]> {
+    const data = await sql<{ nickname: string }>`
+        SELECT u.nickname
+        FROM users u
+                 JOIN followers f1 ON u.id = f1.follower_id
+                 JOIN followers f2 ON u.id = f2.follower_id
+        WHERE f1.user_id = ${userId1}
+          AND f2.user_id = ${userId2}
+    `;
+
+    return data.rows.map((obj) => obj.nickname);
 }
 
 export async function fetchStoriesGrouped(userId: string):

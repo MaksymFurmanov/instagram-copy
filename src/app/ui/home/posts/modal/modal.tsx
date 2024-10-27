@@ -1,5 +1,11 @@
 import styles from "./post.modal.module.css";
-import {Post, PostComment, PostContent, User} from "@/app/lib/definitions";
+import {
+    CommentWithUser,
+    Post,
+    PostComment,
+    PostContent,
+    User
+} from "@/app/lib/definitions";
 import {
     getComments,
     getContent,
@@ -14,10 +20,8 @@ import PostButtons from "@/app/ui/home/posts/buttons";
 import ModalPortal from "@/app/ui/modal-portal";
 import CloseButton from "@/app/ui/close-button";
 import React from "react";
-import CommentInput from "@/app/ui/home/posts/modal/comment-input";
 import CommentsWrapper from "@/app/ui/home/posts/modal/comments-wrapper";
-
-export type CommentWithUser = PostComment & { author: User };
+import CommentInput from "@/app/ui/home/posts/modal/comment-form";
 
 export default async function PostModal({id}: {
     id: string
@@ -69,7 +73,7 @@ export default async function PostModal({id}: {
                                      time={post.created_time}
                         />
 
-                        <CommentInput/>
+                        <CommentInput postId={id}/>
                     </div>
                 </main>
 

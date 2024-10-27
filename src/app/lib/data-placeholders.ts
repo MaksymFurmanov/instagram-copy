@@ -47,17 +47,29 @@ export const user = users[3];
 
 export const followers: Follower[] = [
     {
-        user_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b',
-        follower_id: '644f87a3-4154-49c8-a6b8-ece398af247e',
+        user_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b', //maksym_furmanov
+        follower_id: '644f87a3-4154-49c8-a6b8-ece398af247e', //jeremy_fox
     },
     {
-        user_id: '644f87a3-4154-49c8-a6b8-ece398af247e',
-        follower_id: '82984017-d440-489b-ad02-6913c404b902',
+        user_id: '644f87a3-4154-49c8-a6b8-ece398af247e', //jeremy_fox
+        follower_id: '82984017-d440-489b-ad02-6913c404b902', //ally_manson
     },
     {
-        user_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b',
-        follower_id: '61af641d-3496-40d8-88e0-cc54f432393d',
-    }
+        user_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b',  //maksym_furmanov
+        follower_id: '61af641d-3496-40d8-88e0-cc54f432393d', //lilia_tracy
+    },
+    {
+        user_id: '61af641d-3496-40d8-88e0-cc54f432393d', //lilia_tracy
+        follower_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b', //maksym_furmanov
+    },
+    {
+        user_id: '644f87a3-4154-49c8-a6b8-ece398af247e', //jeremy_fox
+        follower_id: '66747c14-c55b-4af5-b5ab-16a2edaaf95b', //maksym_furmanov
+    },
+    {
+        user_id: '82984017-d440-489b-ad02-6913c404b902', //ally_manson
+        follower_id: '644f87a3-4154-49c8-a6b8-ece398af247e', //jeremy_fox
+    },
 ]
 
 export const stories: Story[] = [

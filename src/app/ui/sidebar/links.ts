@@ -13,13 +13,7 @@ import CreateIcon from "../../../../public/sidebar/create.svg";
 import ThreadsIcon from "../../../../public/sidebar/threads.svg";
 import HamburgerMenu from "../../../../public/sidebar/hamburger-menu.svg";
 import {user} from "@/app/lib/data-placeholders";
-
-export type SidebarLinkType = {
-    label: string,
-    icon: any,
-    selected_icon: any,
-    href?: string,
-}
+import {SidebarLinkType} from "@/app/lib/definitions";
 
 export const topLinks: SidebarLinkType[] = [
     {

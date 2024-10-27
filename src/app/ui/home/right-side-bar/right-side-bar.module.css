@@ -1,0 +1,68 @@
+.actionBtn {
+    border: none;
+    background: none;
+    font-weight: 500;
+    color: #0095F6;
+}
+
+/* RightSideBar component */
+.RightSideBar {
+    display: none;
+    flex-direction: column;
+    width: 25em;
+    font-size: 0.8rem;
+    margin-top: 2em;
+    margin-left: 4em;
+}
+
+/* UserProfile and Suggestions components */
+.UserProfile {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Suggestions {
+    margin-left: 2em;
+}
+
+.Suggestions header,
+.suggestion {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+.Suggestions header,
+.suggestion p {
+    color: #737373;
+}
+
+.suggestion p {
+    font-size: 0.8em;
+}
+
+.Suggestions header .actionBtn {
+    color: black;
+}
+
+.userContainer img,
+.suggestionContainer img {
+    width: 3.2em;
+    height: 3.2em;
+    border-radius: 25px;
+    margin: 1em;
+}
+
+.suggestionContainer,
+.userContainer {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Show recommendation */
+@media (min-width: 1170px) {
+    .RightSideBar {
+        display: flex;
+    }
+}

@@ -22,7 +22,7 @@
     padding: 1em 0 1em 0.2em;
 }
 
-.PostCardHeader img {
+.PostCardHeader .ProfilePic {
     border-radius: 25px;
     width: 2em;
     height: 2em;

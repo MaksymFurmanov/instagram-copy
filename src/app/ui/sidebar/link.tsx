@@ -1,17 +1,49 @@
+'use client';
+
 import styles from "./sidebar.module.css";
 import Image from "next/image";
-import {SidebarLinkType} from "@/app/ui/sidebar/links";
-import {MouseEventHandler} from "react";
+import {SidebarLinkType} from "@/app/lib/definitions";
+import {useRouter} from "next/navigation";
+import {useSelectedLink, useSetSelectedLink} from "@/app/providers/SelectedLinkProvider";
+import clsx from "clsx";
 
-export default function Link({link, selected, onClick, showLabels}: {
-    link: SidebarLinkType,
-    selected: boolean,
-    showLabels: boolean,
-    onClick: MouseEventHandler<HTMLElement>
+export default function Link({link}: {
+    link: SidebarLinkType
 }) {
+    const {replace} = useRouter();
+    const {selectedLink} = useSelectedLink();
+    const {setSelectedLink} = useSetSelectedLink();
+
+    const selected = selectedLink === link.label;
+
+    const navigationHandler = (link: SidebarLinkType) => {
+        setSelectedLink(link.label);
+
+        if (link?.href) {
+            replace(link.href);
+            return;
+        }
+
+        switch (link.label) {
+            case "Search":
+                break;
+            case "Notification":
+                break;
+            case "Create":
+                break;
+            default:
+        }
+    }
+
     const IconComponent = selected ? link.selected_icon : link.icon;
+
     return (
-        <main className={styles.SidebarLink} onClick={onClick}>
+        <main className={clsx(
+            styles.Link,
+            link.label === "Threads" && styles.threads
+        )}
+              onClick={() => navigationHandler(link)}
+        >
             {link.label === "Profile" ? (
                 <Image src={link.icon}
                        alt={link.label}
@@ -23,11 +55,12 @@ export default function Link({link, selected, onClick, showLabels}: {
                     ? styles.more : ""}
                 />
             )}
-            {showLabels &&
-                <p style={{fontWeight: selected ? 600 : 400}}>
-                    {link.label}
-                </p>
-            }
+
+            <p className={styles.linkLabel}
+               style={{fontWeight: selected ? 600 : 400}}
+            >
+                {link.label}
+            </p>
         </main>
     );
 }

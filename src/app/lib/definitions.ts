@@ -12,12 +12,22 @@ export interface Follower {
     follower_id: string
 }
 
+export interface MutualFriend extends User {
+    users: string[]
+}
+
 export interface Story {
     id: string,
     user_id: string,
     created_time: string,
     content_url: string,
     content_type: 'image' | 'video'
+}
+
+export interface StoriesGrouped {
+    user_id: string,
+    profile_pic_url: string,
+    stories: Story[]
 }
 
 export interface Post {
@@ -56,6 +66,17 @@ export interface PostComment extends Comment {
     replies: number
 }
 
+export interface CommentWithUser extends PostComment {
+    author: User
+}
+
 export interface PostCommentReply extends Comment {
     comment_id: string,
+}
+
+export interface SidebarLinkType {
+    label: string,
+    icon: any,
+    selected_icon: any,
+    href?: string
 }

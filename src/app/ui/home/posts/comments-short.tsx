@@ -2,11 +2,11 @@
 
 import styles from "./post.module.css";
 import {PostComment} from "@/app/lib/definitions";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import SmileIcon from "../../../../../public/smile.svg";
 import LikeIcon from "../../../../../public/like.svg";
 import LikeFilledIcon from "../../../../../public/like-filled.svg";
-import useScalingTextarea from "@/app/utils/useScalingTextarea";
+import useScalingTextarea from "@/app/utils/hooks/useScalingTextarea";
 
 export default function CommentsShort({commentCount, commentExamples}: {
     commentCount: number,
@@ -15,6 +15,12 @@ export default function CommentsShort({commentCount, commentExamples}: {
     const [comment, setComment] = useState<string>("");
     const [liked, setLiked] = useState<boolean>(false);
     const textareaRef = useScalingTextarea(4, [comment]);
+
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+
+    }
 
     const LikeStatus = liked ? LikeFilledIcon : LikeIcon;
 
@@ -40,7 +46,9 @@ export default function CommentsShort({commentCount, commentExamples}: {
                 </a>
             }
 
-            <div className={styles.addComment}>
+            <form className={styles.addComment}
+                  onSubmit={onSubmit}
+            >
                 <textarea ref={textareaRef}
                           value={comment}
                           onChange={e =>
@@ -54,7 +62,7 @@ export default function CommentsShort({commentCount, commentExamples}: {
                     </button>
                     <SmileIcon/>
                 </div>
-            </div>
+            </form>
         </main>
     );
 }

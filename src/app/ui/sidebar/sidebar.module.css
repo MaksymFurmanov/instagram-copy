@@ -26,10 +26,11 @@
 .logoFull {
     width: 6.8em;
     margin-bottom: 1.5em;
+    display: none;
 }
 
 /* Component Link */
-.SidebarLink {
+.Link {
     display: flex;
     align-items: center;
     border-radius: 8px;
@@ -39,17 +40,17 @@
     transition: background-color 1ms ease, width 1ms ease;
 }
 
-.SidebarLink img,
-.SidebarLink svg {
+.Link img,
+.Link svg {
     transition: transform 200ms ease;
 }
 
-.SidebarLink svg {
-     width: 1.4em;
-     height: 1.4em;
- }
+.Link svg {
+    width: 1.4em;
+    height: 1.4em;
+}
 
-.SidebarLink img {
+.Link img {
     border-radius: 25px;
 }
 
@@ -57,26 +58,54 @@
     transform: scale(1.5) !important;
 }
 
-.SidebarLink p {
+.Link p {
     padding-left: 1.2em;
 }
 
-.SidebarLink:hover {
+.Link:hover {
     background-color: rgb(242 242 242);;
 }
 
-.SidebarLink:hover svg,
-.SidebarLink:hover img {
+.Link:hover svg,
+.Link:hover img {
     transform: scale(1.1);
 }
 
-.SidebarLink:hover .more{
+.Link:hover .more {
     transform: scale(1.6) !important;
+}
+
+.linkLabel {
+    display: none;
+}
+
+.threads {
+    display: none;
 }
 
 /* Styles for tablets in portrait mode */
 @media (min-width: 768px) {
     .Sidebar {
+        display: flex;
+    }
+}
+
+@media (min-width: 1260px) {
+    .logo {
+        display: none;
+    }
+
+    .logoFull {
+        display: inline;
+    }
+
+    .linkLabel {
+        display: inline;
+    }
+}
+
+@media (min-height: 620px) {
+    .threads {
         display: flex;
     }
 }

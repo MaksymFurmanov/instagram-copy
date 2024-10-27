@@ -27,7 +27,7 @@ b {
     width: 3em;
 }
 
-.ProfilePic img {
+.profilePicture {
     width: 2em;
     height: 2em;
     border-radius: 25px;
@@ -62,6 +62,32 @@ b {
     height: auto;
     stroke: white;
     fill: #ffffff;
+}
+
+.Footer {
+    font-size: 0.6rem;
+    color: #c7c7c7;
+    fill: #c7c7c7;
+}
+
+.footerLinks {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2em;
+}
+
+.footerLinks p {
+    cursor: pointer;
+}
+
+.footerLinks p:hover {
+    text-decoration: underline;
+}
+
+.footerLinks svg {
+    margin: 0.25em 0 0.5em;
+    width: 1em;
+    height: 1em;
 }
 
 /* Styles for tablets in portrait mode */

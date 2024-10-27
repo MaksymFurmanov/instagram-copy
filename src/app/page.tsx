@@ -1,9 +1,8 @@
 import Header from "@/app/ui/home/header";
 import List from "@/app/ui/home/stories/list";
 import PostsList from "@/app/ui/home/posts/list";
-import Recommendations from "@/app/ui/home/recommendations";
-import Footer from "@/app/ui/footer";
-import styles from "../ui/home/home.module.css"
+import RightSideBar from "@/app/ui/home/right-side-bar/right-side-bar";
+import styles from "./ui/home/home.module.css"
 import React, {Suspense} from "react";
 import PostModal from "@/app/ui/home/posts/modal/modal";
 
@@ -29,8 +28,7 @@ export default function HomePage({
                 <PostsList variant={variant}/>
             </div>
 
-            <Recommendations/>
-            <Footer/>
+            <RightSideBar/>
 
             {id && <Suspense fallback={"Loading"}>
                 <PostModal id={id}/>
